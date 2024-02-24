@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ruoyi.common.log.annotation.Log;
 import com.ruoyi.common.log.enums.BusinessType;
 import com.ruoyi.common.security.annotation.RequiresPermissions;
-import com.ruoyi.saas.domain.User;
-import com.ruoyi.saas.service.IUserService;
+import com.ruoyi.saas.domain.AppUser;
+import com.ruoyi.saas.service.IAppUserService;
 import com.ruoyi.common.core.web.controller.BaseController;
 import com.ruoyi.common.core.web.domain.AjaxResult;
 import com.ruoyi.common.core.utils.poi.ExcelUtil;
@@ -29,77 +29,77 @@ import com.ruoyi.common.core.web.page.TableDataInfo;
  * @date 2024-02-23
  */
 @RestController
-@RequestMapping("/brand")
-public class UserController extends BaseController
+@RequestMapping("/user")
+public class AppUserController extends BaseController
 {
     @Autowired
-    private IUserService userService;
+    private IAppUserService appUserService;
 
     /**
      * 查询用户信息列表
      */
-    @RequiresPermissions("saas:brand:list")
+    @RequiresPermissions("saas:user:list")
     @GetMapping("/list")
-    public TableDataInfo list(User user)
+    public TableDataInfo list(AppUser appUser)
     {
         startPage();
-        List<User> list = userService.selectUserList(user);
+        List<AppUser> list = appUserService.selectAppUserList(appUser);
         return getDataTable(list);
     }
 
     /**
      * 导出用户信息列表
      */
-    @RequiresPermissions("saas:brand:export")
+    @RequiresPermissions("saas:user:export")
     @Log(title = "用户信息", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
-    public void export(HttpServletResponse response, User user)
+    public void export(HttpServletResponse response, AppUser appUser)
     {
-        List<User> list = userService.selectUserList(user);
-        ExcelUtil<User> util = new ExcelUtil<User>(User.class);
+        List<AppUser> list = appUserService.selectAppUserList(appUser);
+        ExcelUtil<AppUser> util = new ExcelUtil<AppUser>(AppUser.class);
         util.exportExcel(response, list, "用户信息数据");
     }
 
     /**
      * 获取用户信息详细信息
      */
-    @RequiresPermissions("saas:brand:query")
+    @RequiresPermissions("saas:user:query")
     @GetMapping(value = "/{id}")
     public AjaxResult getInfo(@PathVariable("id") String id)
     {
-        return success(userService.selectUserById(id));
+        return success(appUserService.selectAppUserById(id));
     }
 
     /**
      * 新增用户信息
      */
-    @RequiresPermissions("saas:brand:add")
+    @RequiresPermissions("saas:user:add")
     @Log(title = "用户信息", businessType = BusinessType.INSERT)
     @PostMapping
-    public AjaxResult add(@RequestBody User user)
+    public AjaxResult add(@RequestBody AppUser appUser)
     {
-        return toAjax(userService.insertUser(user));
+        return toAjax(appUserService.insertAppUser(appUser));
     }
 
     /**
      * 修改用户信息
      */
-    @RequiresPermissions("saas:brand:edit")
+    @RequiresPermissions("saas:user:edit")
     @Log(title = "用户信息", businessType = BusinessType.UPDATE)
     @PutMapping
-    public AjaxResult edit(@RequestBody User user)
+    public AjaxResult edit(@RequestBody AppUser appUser)
     {
-        return toAjax(userService.updateUser(user));
+        return toAjax(appUserService.updateAppUser(appUser));
     }
 
     /**
      * 删除用户信息
      */
-    @RequiresPermissions("saas:brand:remove")
+    @RequiresPermissions("saas:user:remove")
     @Log(title = "用户信息", businessType = BusinessType.DELETE)
 	@DeleteMapping("/{ids}")
     public AjaxResult remove(@PathVariable String[] ids)
     {
-        return toAjax(userService.deleteUserByIds(ids));
+        return toAjax(appUserService.deleteAppUserByIds(ids));
     }
 }

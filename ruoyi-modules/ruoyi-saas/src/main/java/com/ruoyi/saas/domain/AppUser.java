@@ -6,33 +6,33 @@ import com.ruoyi.common.core.annotation.Excel;
 import com.ruoyi.common.core.web.domain.BaseEntity;
 
 /**
- * 用户信息对象 user
+ * 用户信息对象 app_user
  * 
  * @author ruoyi
  * @date 2024-02-23
  */
-public class User extends BaseEntity
+public class AppUser extends BaseEntity
 {
     private static final long serialVersionUID = 1L;
 
     /** 主键 */
     private String id;
 
-    /** 姓名 */
-    @Excel(name = "姓名")
-    private String name;
+    /** 真实姓名 */
+    @Excel(name = "真实姓名")
+    private String realName;
 
-    /** 性别 */
-    @Excel(name = "性别")
-    private Long sex;
-
-    /** 年龄 */
-    @Excel(name = "年龄")
-    private Long age;
+    /** 昵称 */
+    @Excel(name = "昵称")
+    private String nickName;
 
     /** 手机号 */
     @Excel(name = "手机号")
     private Long phone;
+
+    /** 登录密码 */
+    @Excel(name = "登录密码")
+    private String loginPassword;
 
     /** 是否删除 */
     @Excel(name = "是否删除")
@@ -47,32 +47,23 @@ public class User extends BaseEntity
     {
         return id;
     }
-    public void setName(String name) 
+    public void setRealName(String realName) 
     {
-        this.name = name;
+        this.realName = realName;
     }
 
-    public String getName() 
+    public String getRealName() 
     {
-        return name;
+        return realName;
     }
-    public void setSex(Long sex) 
+    public void setNickName(String nickName) 
     {
-        this.sex = sex;
-    }
-
-    public Long getSex() 
-    {
-        return sex;
-    }
-    public void setAge(Long age) 
-    {
-        this.age = age;
+        this.nickName = nickName;
     }
 
-    public Long getAge() 
+    public String getNickName() 
     {
-        return age;
+        return nickName;
     }
     public void setPhone(Long phone) 
     {
@@ -82,6 +73,15 @@ public class User extends BaseEntity
     public Long getPhone() 
     {
         return phone;
+    }
+    public void setLoginPassword(String loginPassword) 
+    {
+        this.loginPassword = loginPassword;
+    }
+
+    public String getLoginPassword() 
+    {
+        return loginPassword;
     }
     public void setIsDel(Long isDel) 
     {
@@ -97,10 +97,10 @@ public class User extends BaseEntity
     public String toString() {
         return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
             .append("id", getId())
-            .append("name", getName())
-            .append("sex", getSex())
-            .append("age", getAge())
+            .append("realName", getRealName())
+            .append("nickName", getNickName())
             .append("phone", getPhone())
+            .append("loginPassword", getLoginPassword())
             .append("isDel", getIsDel())
             .toString();
     }

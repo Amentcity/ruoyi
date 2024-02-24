@@ -3,9 +3,9 @@ package com.ruoyi.saas.service.impl;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.ruoyi.saas.mapper.UserMapper;
-import com.ruoyi.saas.domain.User;
-import com.ruoyi.saas.service.IUserService;
+import com.ruoyi.saas.mapper.AppUserMapper;
+import com.ruoyi.saas.domain.AppUser;
+import com.ruoyi.saas.service.IAppUserService;
 
 /**
  * 用户信息Service业务层处理
@@ -14,10 +14,10 @@ import com.ruoyi.saas.service.IUserService;
  * @date 2024-02-23
  */
 @Service
-public class UserServiceImpl implements IUserService 
+public class AppUserServiceImpl implements IAppUserService 
 {
     @Autowired
-    private UserMapper userMapper;
+    private AppUserMapper appUserMapper;
 
     /**
      * 查询用户信息
@@ -26,45 +26,45 @@ public class UserServiceImpl implements IUserService
      * @return 用户信息
      */
     @Override
-    public User selectUserById(String id)
+    public AppUser selectAppUserById(String id)
     {
-        return userMapper.selectUserById(id);
+        return appUserMapper.selectAppUserById(id);
     }
 
     /**
      * 查询用户信息列表
      * 
-     * @param user 用户信息
+     * @param appUser 用户信息
      * @return 用户信息
      */
     @Override
-    public List<User> selectUserList(User user)
+    public List<AppUser> selectAppUserList(AppUser appUser)
     {
-        return userMapper.selectUserList(user);
+        return appUserMapper.selectAppUserList(appUser);
     }
 
     /**
      * 新增用户信息
      * 
-     * @param user 用户信息
+     * @param appUser 用户信息
      * @return 结果
      */
     @Override
-    public int insertUser(User user)
+    public int insertAppUser(AppUser appUser)
     {
-        return userMapper.insertUser(user);
+        return appUserMapper.insertAppUser(appUser);
     }
 
     /**
      * 修改用户信息
      * 
-     * @param user 用户信息
+     * @param appUser 用户信息
      * @return 结果
      */
     @Override
-    public int updateUser(User user)
+    public int updateAppUser(AppUser appUser)
     {
-        return userMapper.updateUser(user);
+        return appUserMapper.updateAppUser(appUser);
     }
 
     /**
@@ -74,9 +74,9 @@ public class UserServiceImpl implements IUserService
      * @return 结果
      */
     @Override
-    public int deleteUserByIds(String[] ids)
+    public int deleteAppUserByIds(String[] ids)
     {
-        return userMapper.deleteUserByIds(ids);
+        return appUserMapper.deleteAppUserByIds(ids);
     }
 
     /**
@@ -86,8 +86,8 @@ public class UserServiceImpl implements IUserService
      * @return 结果
      */
     @Override
-    public int deleteUserById(String id)
+    public int deleteAppUserById(String id)
     {
-        return userMapper.deleteUserById(id);
+        return appUserMapper.deleteAppUserById(id);
     }
 }
