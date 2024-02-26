@@ -4,6 +4,7 @@ import java.util.List;
 import java.io.IOException;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Required;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -101,5 +102,15 @@ public class AppUserController extends BaseController
     public AjaxResult remove(@PathVariable String[] ids)
     {
         return toAjax(appUserService.deleteAppUserByIds(ids));
+    }
+
+    /**
+     * 修改用户信息
+     */
+    @RequiresPermissions("saas:user:update")
+    @Log(title = "用户信息", businessType = BusinessType.UPDATE)
+    @PostMapping("/update")
+    public AjaxResult update(AppUser appUser){
+        return  toAjax(appUserService.updateAppUser(appUser));
     }
 }
