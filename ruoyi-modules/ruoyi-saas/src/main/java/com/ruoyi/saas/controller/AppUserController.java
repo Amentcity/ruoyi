@@ -116,7 +116,7 @@ public class AppUserController extends BaseController
     }
 
     /**
-     * 修改用户信息
+     * 添加用户信息
      */
     @RequiresPermissions("saas:user:adduser")
     @Log(title = "用户信息", businessType = BusinessType.UPDATE)
