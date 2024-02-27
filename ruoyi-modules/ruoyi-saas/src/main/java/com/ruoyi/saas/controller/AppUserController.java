@@ -2,6 +2,7 @@ package com.ruoyi.saas.controller;
 
 import java.util.List;
 import java.io.IOException;
+import java.util.UUID;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
@@ -111,6 +112,17 @@ public class AppUserController extends BaseController
     @Log(title = "用户信息", businessType = BusinessType.UPDATE)
     @PostMapping("/update")
     public AjaxResult update(AppUser appUser){
-        return  toAjax(appUserService.updateAppUser(appUser));
+        return toAjax(appUserService.updateAppUser(appUser));
+    }
+
+    /**
+     * 修改用户信息
+     */
+    @RequiresPermissions("saas:user:adduser")
+    @Log(title = "用户信息", businessType = BusinessType.UPDATE)
+    @PostMapping("/adduser")
+    public AjaxResult adduser(AppUser appUser){
+        appUser.setId(UUID.randomUUID().toString());
+        return toAjax(appUserService.insertAppUser(appUser));
     }
 }
