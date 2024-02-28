@@ -1,5 +1,7 @@
 package com.ruoyi.saas.controller;
 
+import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.List;
 import java.io.IOException;
 import java.util.UUID;
@@ -123,6 +125,19 @@ public class AppUserController extends BaseController
     @PostMapping("/adduser")
     public AjaxResult adduser(AppUser appUser){
         appUser.setId(UUID.randomUUID().toString());
+        return toAjax(appUserService.insertAppUser(appUser));
+    }
+
+    /**
+    * 添加用户信息接口数据
+    */
+    @RequiresPermissions("saas:user:addAll")
+    @Log(title = "添加用户所有信息",businessType = BusinessType.GENCODE)
+    @PostMapping("/getCodeAddAll")
+    public AjaxResult getCodeAddAll(AppUser appUser){
+        appUser.setId(UUID.randomUUID().toString());
+        appUser.setCreateTime(LocalDateTime.now());
+        appUser.setLoginPassword(Arrays.toString(appUser.getPhone().toString().split(String.valueOf(6),10)));
         return toAjax(appUserService.insertAppUser(appUser));
     }
 }

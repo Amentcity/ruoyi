@@ -1,6 +1,7 @@
 package com.ruoyi.common.core.web.domain;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -26,7 +27,7 @@ public class BaseEntity implements Serializable
 
     /** 创建时间 */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date createTime;
+    private LocalDateTime createTime;
 
     /** 更新者 */
     private String updateBy;
@@ -62,12 +63,12 @@ public class BaseEntity implements Serializable
         this.createBy = createBy;
     }
 
-    public Date getCreateTime()
+    public LocalDateTime getCreateTime()
     {
         return createTime;
     }
 
-    public void setCreateTime(Date createTime)
+    public void setCreateTime(LocalDateTime createTime)
     {
         this.createTime = createTime;
     }
