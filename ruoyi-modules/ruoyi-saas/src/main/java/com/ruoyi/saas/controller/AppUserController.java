@@ -3,11 +3,9 @@ package com.ruoyi.saas.controller;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
-import java.io.IOException;
 import java.util.UUID;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Required;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -60,7 +58,7 @@ public class AppUserController extends BaseController
     public void export(HttpServletResponse response, AppUser appUser)
     {
         List<AppUser> list = appUserService.selectAppUserList(appUser);
-        ExcelUtil<AppUser> util = new ExcelUtil<AppUser>(AppUser.class);
+        ExcelUtil<AppUser> util = new ExcelUtil<>(AppUser.class);
         util.exportExcel(response, list, "用户信息数据");
     }
 
