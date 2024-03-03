@@ -140,4 +140,11 @@ public class AppUserController extends BaseController
         appUser.setLoginPassword(Arrays.toString(appUser.getPhone().toString().split(String.valueOf(6),10)));
         return toAjax(appUserService.insertAppUser(appUser));
     }
+
+    @RequiresPermissions("saas:user:getAll")
+    @Log(title = "获取用户所有信息", businessType = BusinessType.FORCE)
+    @GetMapping("/getAll")
+    public AjaxResult getAll(AppUser appUser){
+        return success(appUserService.selectAppUserList(appUser));
+    }
 }
