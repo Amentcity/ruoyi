@@ -145,4 +145,11 @@ public class AppUserController extends BaseController
     public AjaxResult getAll(AppUser appUser){
         return success(appUserService.selectAppUserList(appUser));
     }
+
+    @RequiresPermissions("saas:user:getAdmin")
+    @Log(title = "根据管理员获取信息",businessType = BusinessType.GENCODE)
+    @GetMapping("/admin")
+    public AjaxResult getAdmin(AppUser appUser){
+        return success(appUserService.selectAppUserById(appUser.getId()));
+    }
 }
