@@ -154,7 +154,7 @@ public class AppUserController extends BaseController
     }
 
     /**
-     * 添加用户信息接口数据
+     * 添加用户备注
      */
     @RequiresPermissions("saas:user:addAll")
     @Log(title = "添加用户所有信息",businessType = BusinessType.GENCODE)
