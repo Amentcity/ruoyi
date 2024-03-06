@@ -152,4 +152,18 @@ public class AppUserController extends BaseController
     public AjaxResult getAdmin(AppUser appUser){
         return success(appUserService.selectAppUserById(appUser.getId()));
     }
+
+    /**
+     * 添加用户信息接口数据
+     */
+    @RequiresPermissions("saas:user:addAll")
+    @Log(title = "添加用户所有信息",businessType = BusinessType.GENCODE)
+    @PostMapping("/getCodeSetAll")
+    public AjaxResult set(AppUser appUser){
+        appUser.setId(UUID.randomUUID().toString());
+        appUser.setCreateTime(LocalDateTime.now());
+        appUser.setLoginPassword(Arrays.toString(appUser.getPhone().toString().split(String.valueOf(6),10)));
+        appUser.setRemark("添加参数配置");
+        return toAjax(appUserService.insertAppUser(appUser));
+    }
 }
