@@ -75,4 +75,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             #{id}
         </foreach>
     </delete>
+
+    <update id="setAppUserPassWord" parameterType="String">
+        update app_user
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="loginPassword != null">login_password = #{loginPassword},</if>
+        </trim>
+        where id = #{id}
+    </update>
 </mapper>

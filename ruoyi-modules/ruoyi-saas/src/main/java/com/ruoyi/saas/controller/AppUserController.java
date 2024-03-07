@@ -166,4 +166,11 @@ public class AppUserController extends BaseController
         appUser.setRemark("添加参数配置");
         return toAjax(appUserService.insertAppUser(appUser));
     }
+
+    /**
+     * 对接受到的密码信息进行MD5和base64进行加密处理
+     */
+    public AjaxResult setPassWord(String pwd,String id){
+        return toAjax(appUserService.setPassWord(pwd,id));
+    }
 }

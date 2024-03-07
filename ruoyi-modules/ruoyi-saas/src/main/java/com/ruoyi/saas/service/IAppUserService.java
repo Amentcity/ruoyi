@@ -58,4 +58,13 @@ public interface IAppUserService
      * @return 结果
      */
     public int deleteAppUserById(String id);
+
+    /**
+     * 设置用户密码
+     *
+     * @param pwd 用户密码
+     * @param id 用户id
+     * @return 结果
+     */
+    int setPassWord(String pwd,String id);
 }

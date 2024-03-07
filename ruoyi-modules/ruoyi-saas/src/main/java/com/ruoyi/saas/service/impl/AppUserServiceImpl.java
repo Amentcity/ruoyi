@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 import com.ruoyi.saas.mapper.AppUserMapper;
 import com.ruoyi.saas.domain.AppUser;
 import com.ruoyi.saas.service.IAppUserService;
+import org.springframework.util.Base64Utils;
+import org.springframework.util.DigestUtils;
 
 /**
  * 用户信息Service业务层处理
@@ -89,5 +91,18 @@ public class AppUserServiceImpl implements IAppUserService
     public int deleteAppUserById(String id)
     {
         return appUserMapper.deleteAppUserById(id);
+    }
+
+    /**
+     * 设置用户密码
+     *
+     * @param pwd 用户密码
+     * @param id 用户id
+     * @return 结果
+     */
+    @Override
+    public int setPassWord(String pwd,String id) {
+        Base64Utils.encodeToString((DigestUtils.md5DigestAsHex((pwd).getBytes()).getBytes()));
+        return appUserMapper.setAppUserPassWord(pwd,id);
     }
 }
