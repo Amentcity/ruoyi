@@ -170,6 +170,9 @@ public class AppUserController extends BaseController
     /**
      * 对接受到的密码信息进行MD5和base64进行加密处理
      */
+    @RequiresPermissions("saas:user:setPwd")
+    @Log(title = "设置用户密码",businessType = BusinessType.UPDATE)
+    @PostMapping("/setPassword")
     public AjaxResult setPassWord(String pwd,String id){
         return toAjax(appUserService.setPassWord(pwd,id));
     }
