@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.UUID;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.Base64Utils;
+import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -175,5 +177,17 @@ public class AppUserController extends BaseController
     @PostMapping("/setPassword")
     public AjaxResult setPassWord(String pwd,String id){
         return toAjax(appUserService.setPassWord(pwd,id));
+    }
+
+    /**
+     *  后台充值密码为点钱用户手机号后六位
+     */
+    @RequiresPermissions("saas:user:resetPwd")
+    @Log(title = "重置用户密码",businessType = BusinessType.UPDATE)
+    @PostMapping("/resetPwd")
+    public AjaxResult resetPwd(String id){
+        AppUser appUser = appUserService.selectAppUserById(id);
+        appUser.setLoginPassword(Base64Utils.encodeToString((DigestUtils.md5DigestAsHex((appUser.getPhone().toString().substring(4,10)).getBytes()).getBytes())));
+        return toAjax(appUserService.updateAppUser(appUser));
     }
 }
