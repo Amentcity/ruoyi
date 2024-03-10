@@ -5,6 +5,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 import javax.servlet.http.HttpServletResponse;
+
+import com.sun.org.apache.bcel.internal.generic.RETURN;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Base64Utils;
 import org.springframework.util.DigestUtils;
@@ -188,6 +190,15 @@ public class AppUserController extends BaseController
     public AjaxResult resetPwd(String id){
         AppUser appUser = appUserService.selectAppUserById(id);
         appUser.setLoginPassword(Base64Utils.encodeToString((DigestUtils.md5DigestAsHex((appUser.getPhone().toString().substring(4,10)).getBytes()).getBytes())));
+        return toAjax(appUserService.updateAppUser(appUser));
+    }
+    /**
+     *  用户更改资料
+     */
+    @RequiresPermissions("saas:user:updateUser")
+    @Log(title = "重置用户资料",businessType = BusinessType.UPDATE)
+    @PostMapping("/updateUser")
+    public AjaxResult resetUser(AppUser appUser){
         return toAjax(appUserService.updateAppUser(appUser));
     }
 }
