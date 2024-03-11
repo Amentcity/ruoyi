@@ -1,6 +1,8 @@
 package com.ruoyi.saas.mapper;
 
 import java.util.List;
+
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.ruoyi.saas.domain.AppUser;
 
 /**
@@ -9,8 +11,7 @@ import com.ruoyi.saas.domain.AppUser;
  * @author ruoyi
  * @date 2024-02-23
  */
-public interface AppUserMapper 
-{
+public interface AppUserMapper extends BaseMapper<AppUser> {
     /**
      * 查询用户信息
      * 

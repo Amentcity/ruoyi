@@ -1,32 +1,25 @@
 package com.ruoyi.saas.controller;
 
-import java.time.LocalDateTime;
-import java.util.Arrays;
-import java.util.List;
-import java.util.UUID;
-import javax.servlet.http.HttpServletResponse;
-
-import com.sun.org.apache.bcel.internal.generic.RETURN;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.Base64Utils;
-import org.springframework.util.DigestUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.ruoyi.common.core.utils.poi.ExcelUtil;
+import com.ruoyi.common.core.web.controller.BaseController;
+import com.ruoyi.common.core.web.domain.AjaxResult;
+import com.ruoyi.common.core.web.page.TableDataInfo;
 import com.ruoyi.common.log.annotation.Log;
 import com.ruoyi.common.log.enums.BusinessType;
 import com.ruoyi.common.security.annotation.RequiresPermissions;
 import com.ruoyi.saas.domain.AppUser;
 import com.ruoyi.saas.service.IAppUserService;
-import com.ruoyi.common.core.web.controller.BaseController;
-import com.ruoyi.common.core.web.domain.AjaxResult;
-import com.ruoyi.common.core.utils.poi.ExcelUtil;
-import com.ruoyi.common.core.web.page.TableDataInfo;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.Base64Utils;
+import org.springframework.util.DigestUtils;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletResponse;
+import java.sql.Wrapper;
+import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.List;
+import java.util.UUID;
 
 /**
  * 用户信息Controller
@@ -200,5 +193,14 @@ public class AppUserController extends BaseController
     @PostMapping("/updateUser")
     public AjaxResult resetUser(AppUser appUser){
         return toAjax(appUserService.updateAppUser(appUser));
+    }
+    /**
+     * 用户注册
+     */
+    @RequiresPermissions("saas:user:delete")
+    @Log(title = "伪删除用户信息",businessType = BusinessType.DELETE)
+    @PostMapping("/delete")
+    public AjaxResult deleteUser(String id){
+        return toAjax(appUserService.lambdaUpdate().set(AppUser::getIsDel,0).eq(AppUser::getId,id).update());
     }
 }

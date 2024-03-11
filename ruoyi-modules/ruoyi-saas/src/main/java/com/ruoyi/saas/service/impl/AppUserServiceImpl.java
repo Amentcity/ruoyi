@@ -1,6 +1,14 @@
 package com.ruoyi.saas.service.impl;
 
+import java.util.Collection;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.function.Function;
+
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ruoyi.saas.mapper.AppUserMapper;
@@ -16,10 +24,10 @@ import org.springframework.util.DigestUtils;
  * @date 2024-02-23
  */
 @Service
-public class AppUserServiceImpl implements IAppUserService 
+public class AppUserServiceImpl extends ServiceImpl<AppUserMapper,AppUser> implements IAppUserService
 {
     @Autowired
-    private AppUserMapper appUserMapper;
+    private IAppUserService appUserService;
 
     /**
      * 查询用户信息
@@ -30,7 +38,7 @@ public class AppUserServiceImpl implements IAppUserService
     @Override
     public AppUser selectAppUserById(String id)
     {
-        return appUserMapper.selectAppUserById(id);
+        return appUserService.selectAppUserById(id);
     }
 
     /**
@@ -42,7 +50,7 @@ public class AppUserServiceImpl implements IAppUserService
     @Override
     public List<AppUser> selectAppUserList(AppUser appUser)
     {
-        return appUserMapper.selectAppUserList(appUser);
+        return appUserService.selectAppUserList(appUser);
     }
 
     /**
@@ -54,7 +62,7 @@ public class AppUserServiceImpl implements IAppUserService
     @Override
     public int insertAppUser(AppUser appUser)
     {
-        return appUserMapper.insertAppUser(appUser);
+        return appUserService.insertAppUser(appUser);
     }
 
     /**
@@ -66,7 +74,7 @@ public class AppUserServiceImpl implements IAppUserService
     @Override
     public int updateAppUser(AppUser appUser)
     {
-        return appUserMapper.updateAppUser(appUser);
+        return appUserService.updateAppUser(appUser);
     }
 
     /**
@@ -78,7 +86,7 @@ public class AppUserServiceImpl implements IAppUserService
     @Override
     public int deleteAppUserByIds(String[] ids)
     {
-        return appUserMapper.deleteAppUserByIds(ids);
+        return appUserService.deleteAppUserByIds(ids);
     }
 
     /**
@@ -90,7 +98,7 @@ public class AppUserServiceImpl implements IAppUserService
     @Override
     public int deleteAppUserById(String id)
     {
-        return appUserMapper.deleteAppUserById(id);
+        return appUserService.deleteAppUserById(id);
     }
 
     /**
@@ -103,6 +111,6 @@ public class AppUserServiceImpl implements IAppUserService
     @Override
     public int setPassWord(String pwd,String id) {
         Base64Utils.encodeToString((DigestUtils.md5DigestAsHex((pwd).getBytes()).getBytes()));
-        return appUserMapper.setAppUserPassWord(pwd,id);
+        return appUserService.setPassWord(pwd, id);
     }
 }
