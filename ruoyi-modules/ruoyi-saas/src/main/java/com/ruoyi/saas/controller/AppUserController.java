@@ -203,4 +203,15 @@ public class AppUserController extends BaseController
     public AjaxResult deleteUser(String id){
         return toAjax(appUserService.lambdaUpdate().set(AppUser::getIsDel,0).eq(AppUser::getId,id).update());
     }
+    /**
+     * 添加根据手机号模糊查询用户
+     */
+    @RequiresPermissions("saas:user:listByPhone")
+    @GetMapping("/listByPhone")
+    public TableDataInfo listByPhone(String phone)
+{
+    startPage();
+    List<AppUser> list = (List<AppUser>) appUserService.lambdaQuery().like(AppUser::getPhone,phone).eq(AppUser::getIsDel,0);
+    return getDataTable(list);
+}
 }
