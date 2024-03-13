@@ -10,13 +10,12 @@ import com.ruoyi.common.log.enums.BusinessType;
 import com.ruoyi.common.security.annotation.RequiresPermissions;
 import com.ruoyi.saas.domain.AppUser;
 import com.ruoyi.saas.service.IAppUserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Base64Utils;
 import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
-import java.sql.Wrapper;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
@@ -32,7 +31,7 @@ import java.util.UUID;
 @RequestMapping("/user")
 public class AppUserController extends BaseController
 {
-    @Autowired
+    @Resource
     private IAppUserService appUserService;
 
     /**
