@@ -1,5 +1,6 @@
 package com.ruoyi.saas.controller;
 
+import com.baomidou.mybatisplus.extension.conditions.query.LambdaQueryChainWrapper;
 import com.ruoyi.common.core.utils.poi.ExcelUtil;
 import com.ruoyi.common.core.web.controller.BaseController;
 import com.ruoyi.common.core.web.domain.AjaxResult;
@@ -211,7 +212,7 @@ public class AppUserController extends BaseController
     public TableDataInfo listByPhone(String phone)
 {
     startPage();
-    List<AppUser> list = (List<AppUser>) appUserService.lambdaQuery().like(AppUser::getPhone,phone).eq(AppUser::getIsDel,0);
-    return getDataTable(list);
+    LambdaQueryChainWrapper<AppUser> eq = appUserService.lambdaQuery().like(AppUser::getPhone, phone).eq(AppUser::getIsDel, 0);
+    return getDataTable((List<?>) eq);
 }
 }
