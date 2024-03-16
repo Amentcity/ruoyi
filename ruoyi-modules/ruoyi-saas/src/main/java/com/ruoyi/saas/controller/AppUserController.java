@@ -207,10 +207,22 @@ public class AppUserController extends BaseController
      * 添加根据手机号模糊查询用户
      */
     @RequiresPermissions("saas:user:listByPhone")
+    @Log(title = "伪删除用户信息",businessType = BusinessType.CLEAN)
     @GetMapping("/listByPhone")
     public TableDataInfo listByPhone(String phone) {
         startPage();
         LambdaQueryChainWrapper<AppUser> eq = appUserService.lambdaQuery().like(AppUser::getPhone, phone).eq(AppUser::getIsDel, 0);
+        return getDataTable((List<?>) eq);
+    }
+    /**
+     *
+     */
+    @RequiresPermissions("saas:user:listByName")
+    @Log(title = "根据名称查找用户",businessType = BusinessType.CLEAN)
+    @GetMapping("/listByName")
+    public TableDataInfo listByName(String name) {
+        startPage();
+        LambdaQueryChainWrapper<AppUser> eq = appUserService.lambdaQuery().like(AppUser::getNickName, name).eq(AppUser::getIsDel, 0);
         return getDataTable((List<?>) eq);
     }
 }
