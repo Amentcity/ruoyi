@@ -208,10 +208,9 @@ public class AppUserController extends BaseController
      */
     @RequiresPermissions("saas:user:listByPhone")
     @GetMapping("/listByPhone")
-    public TableDataInfo listByPhone(String phone)
-{
-    startPage();
-    LambdaQueryChainWrapper<AppUser> eq = appUserService.lambdaQuery().like(AppUser::getPhone, phone).eq(AppUser::getIsDel, 0);
-    return getDataTable((List<?>) eq);
-}
+    public TableDataInfo listByPhone(String phone) {
+        startPage();
+        LambdaQueryChainWrapper<AppUser> eq = appUserService.lambdaQuery().like(AppUser::getPhone, phone).eq(AppUser::getIsDel, 0);
+        return getDataTable((List<?>) eq);
+    }
 }
