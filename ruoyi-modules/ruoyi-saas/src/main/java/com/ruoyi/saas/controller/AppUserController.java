@@ -1,5 +1,6 @@
 package com.ruoyi.saas.controller;
 
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.conditions.query.LambdaQueryChainWrapper;
 import com.ruoyi.common.core.utils.poi.ExcelUtil;
 import com.ruoyi.common.core.web.controller.BaseController;
@@ -10,6 +11,7 @@ import com.ruoyi.common.log.enums.BusinessType;
 import com.ruoyi.common.security.annotation.RequiresPermissions;
 import com.ruoyi.saas.domain.AppUser;
 import com.ruoyi.saas.service.IAppUserService;
+import io.jsonwebtoken.lang.Assert;
 import org.springframework.util.Base64Utils;
 import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 /**
@@ -215,7 +218,7 @@ public class AppUserController extends BaseController
         return getDataTable((List<?>) eq);
     }
     /**
-     *
+     *  根据名称查找用户
      */
     @RequiresPermissions("saas:user:listByName")
     @Log(title = "根据名称查找用户",businessType = BusinessType.CLEAN)
@@ -224,5 +227,18 @@ public class AppUserController extends BaseController
         startPage();
         LambdaQueryChainWrapper<AppUser> eq = appUserService.lambdaQuery().like(AppUser::getNickName, name).eq(AppUser::getIsDel, 0);
         return getDataTable((List<?>) eq);
+    }
+    /**
+     * 用户注册，查找是否有历史记录
+     */
+    @RequiresPermissions("saas:user:addUser")
+    @Log(title = "查询用户查询是否有历史记录",businessType = BusinessType.INSERT)
+    @GetMapping("/")
+    public AjaxResult addUser(AppUser appUser){
+        Optional<AppUser> appUserOne = appUserService.list(Wrappers.lambdaQuery(AppUser.class)
+                .eq(AppUser::getPhone, appUser.getPhone())).stream().findFirst();
+        Assert.notEmpty(new Optional[]{appUserOne},"用户已注册过，是否重新注册");
+        appUser.setId(UUID.randomUUID().toString());
+        return success(appUserService.insertAppUser(appUser));
     }
 }
