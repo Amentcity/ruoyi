@@ -233,7 +233,7 @@ public class AppUserController extends BaseController
      */
     @RequiresPermissions("saas:user:addUser")
     @Log(title = "查询用户查询是否有历史记录",businessType = BusinessType.INSERT)
-    @GetMapping("/")
+    @GetMapping("/queryDeleteUser")
     public AjaxResult addUser(AppUser appUser){
         Optional<AppUser> appUserOne = appUserService.list(Wrappers.lambdaQuery(AppUser.class)
                 .eq(AppUser::getPhone, appUser.getPhone())).stream().findFirst();
