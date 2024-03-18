@@ -241,4 +241,14 @@ public class AppUserController extends BaseController
         appUser.setId(UUID.randomUUID().toString());
         return success(appUserService.insertAppUser(appUser));
     }
+    /**
+     * 更改用户昵称
+     */
+    @RequiresPermissions("saas:user:updateNickName")
+    @Log(title = "根据用户信息修改昵称",businessType = BusinessType.UPDATE)
+    @PostMapping("/updateNickName")
+    public AjaxResult updateNickName(String id,String nickName){
+        return toAjax(appUserService.update(Wrappers.lambdaUpdate(AppUser.class)
+                .eq(AppUser::getId,id).set(AppUser::getNickName,nickName)));
+    }
 }
