@@ -251,4 +251,15 @@ public class AppUserController extends BaseController
         return toAjax(appUserService.update(Wrappers.lambdaUpdate(AppUser.class)
                 .eq(AppUser::getId,id).set(AppUser::getNickName,nickName)));
     }
+    /**
+     * 修改用户真实姓名
+     */
+    @RequiresPermissions("saas:user:updateRealName")
+    @Log(title = "修改用户真实姓名",businessType=BusinessType.UPDATE)
+    @PostMapping("/updateRealName")
+    public AjaxResult updateRealName(String id,String realName){
+        Assert.state(realName.getBytes().length>50,"您输入的姓名过长");
+        return toAjax(appUserService.update(Wrappers.lambdaUpdate(AppUser.class)
+                .set(AppUser::getRealName,realName).eq(AppUser::getId,id)));
+    }
 }
