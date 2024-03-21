@@ -269,9 +269,10 @@ public class AppUserController extends BaseController
     @Log(title = "延迟修改手机号接口",businessType = BusinessType.UPDATE)
     @PostMapping("/updatePhone")
     public AjaxResult updatePhone(String id,String phone){
-        // TODO 未完成的接口，后期会验证登录状况和接受短信验证码才能修改手机号
+        // 未完成的接口，后期会验证登录状况和接受短信验证码才能修改手机号
         Assert.isTrue(!phone.matches("1[3-9]\\d{9}"),"输入的手机号不合法");
-        return success("您的手机号将在三天后进行更改");
+        appUserService.update(Wrappers.lambdaUpdate(AppUser.class).eq(AppUser::getId,id).set(AppUser::getPhone,phone));
+        return success("您的手机号已经更改");
     }
 
 }
