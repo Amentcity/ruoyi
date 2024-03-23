@@ -248,6 +248,7 @@ public class AppUserController extends BaseController
     @Log(title = "根据用户信息修改昵称",businessType = BusinessType.UPDATE)
     @PostMapping("/updateNickName")
     public AjaxResult updateNickName(String id,String nickName){
+        Assert.isTrue(nickName.length()>50,"您输入的昵称过长");
         return toAjax(appUserService.update(Wrappers.lambdaUpdate(AppUser.class)
                 .eq(AppUser::getId,id).set(AppUser::getNickName,nickName)));
     }
@@ -258,7 +259,7 @@ public class AppUserController extends BaseController
     @Log(title = "修改用户真实姓名",businessType=BusinessType.UPDATE)
     @PostMapping("/updateRealName")
     public AjaxResult updateRealName(String id,String realName){
-        Assert.state(realName.getBytes().length>50,"您输入的姓名过长");
+        Assert.state(realName.length()>50,"您输入的姓名过长");
         return toAjax(appUserService.update(Wrappers.lambdaUpdate(AppUser.class)
                 .set(AppUser::getRealName,realName).eq(AppUser::getId,id)));
     }
