@@ -279,6 +279,7 @@ public class AppUserController extends BaseController
     /**
      * 设置用户标签
      */
+    @PostMapping("/updateTag")
     public AjaxResult setAppUserTag(String id,String tag){
         //需要先查询tag标签是否存在
         //如果集合为空，添加断言数据不能为空
