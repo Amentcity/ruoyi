@@ -238,7 +238,7 @@ public class AppUserController extends BaseController
         Optional<AppUser> appUserOne = appUserService.list(Wrappers.lambdaQuery(AppUser.class)
                 .eq(AppUser::getPhone, appUser.getPhone())).stream().findFirst();
         Assert.notEmpty(new Optional[]{appUserOne},"用户已注册过，是否重新注册");
-        appUser.setId(UUID.randomUUID().toString());
+        // 添加成功用户手机号        appUser.setId(UUID.randomUUID().toString());
         return success(appUserService.insertAppUser(appUser));
     }
     /**
@@ -276,4 +276,14 @@ public class AppUserController extends BaseController
         return success("您的手机号已经更改");
     }
 
+    /**
+     * 设置用户标签
+     */
+    public AjaxResult setAppUserTag(String id,String tag){
+        //需要先查询tag标签是否存在
+        //如果集合为空，添加断言数据不能为空
+        //将标签添加到appUser表中，完成为用户设置标签问题
+        appUserService.update(Wrappers.lambdaUpdate(AppUser.class).set(AppUser::getPhone,tag).eq(AppUser::getId,id));
+        return success("用户标签设置成功");
+    }
 }
