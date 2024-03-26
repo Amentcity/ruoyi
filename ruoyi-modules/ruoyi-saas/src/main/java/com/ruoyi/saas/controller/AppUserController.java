@@ -284,7 +284,7 @@ public class AppUserController extends BaseController
         //需要先查询tag标签是否存在
         //如果集合为空，添加断言数据不能为空
         Assert.isNull(id,"电站id不能为空");
-        Assert.isNull(tag,"电站标签");
+        Assert.isNull(tag,"电站标签不能为空");
         //将标签添加到appUser表中，完成为用户设置标签问题
         appUserService.update(Wrappers.lambdaUpdate(AppUser.class).set(AppUser::getPhone,tag).eq(AppUser::getId,id));
         return success("用户标签设置成功");
