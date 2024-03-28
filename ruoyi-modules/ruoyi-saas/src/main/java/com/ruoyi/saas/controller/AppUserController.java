@@ -69,7 +69,8 @@ public class AppUserController extends BaseController
     @GetMapping(value = "/{id}")
     public AjaxResult getInfo(@PathVariable("id") String id)
     {
-        return success(appUserService.selectAppUserById(id));
+        String ids=appUserService.toString();
+        return success(appUserService.selectAppUserById(ids));
     }
 
     /**
