@@ -10,6 +10,7 @@ import com.ruoyi.common.log.annotation.Log;
 import com.ruoyi.common.log.enums.BusinessType;
 import com.ruoyi.common.security.annotation.RequiresPermissions;
 import com.ruoyi.saas.domain.AppUser;
+import com.ruoyi.saas.mapper.AppUserMapper;
 import com.ruoyi.saas.service.IAppUserService;
 import io.jsonwebtoken.lang.Assert;
 import org.springframework.util.Base64Utils;
@@ -36,7 +37,6 @@ public class AppUserController extends BaseController
 {
     @Resource
     private IAppUserService appUserService;
-
     /**
      * 查询用户信息列表
      */
@@ -288,5 +288,12 @@ public class AppUserController extends BaseController
         //将标签添加到appUser表中，完成为用户设置标签问题
         appUserService.update(Wrappers.lambdaUpdate(AppUser.class).set(AppUser::getPhone,tag).eq(AppUser::getId,id));
         return success("用户标签设置成功");
+    }
+    /**
+     * 修改账号密码、
+     */
+    @PostMapping("/updateByLambda")
+    public AjaxResult updateByLambda(AppUser appuser){
+        return success(appUserService.saveOrUpdate(appuser));
     }
 }
