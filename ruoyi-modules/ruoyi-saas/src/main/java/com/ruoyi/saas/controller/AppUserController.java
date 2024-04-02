@@ -294,6 +294,7 @@ public class AppUserController extends BaseController
      */
     @PostMapping("/updateByLambda")
     public AjaxResult updateByLambda(AppUser appuser){
+        appuser.setUpdateTime(LocalDateTime.now());
         return success(appUserService.saveOrUpdate(appuser));
     }
 }

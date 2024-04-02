@@ -8,6 +8,7 @@ import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import jdk.vm.ci.meta.Local;
 
 /**
  * Entity基类
@@ -34,7 +35,7 @@ public class BaseEntity implements Serializable
 
     /** 更新时间 */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date updateTime;
+    private LocalDateTime updateTime;
 
     /** 备注 */
     private String remark;
@@ -83,12 +84,12 @@ public class BaseEntity implements Serializable
         this.updateBy = updateBy;
     }
 
-    public Date getUpdateTime()
+    public LocalDateTime getUpdateTime()
     {
         return updateTime;
     }
 
-    public void setUpdateTime(Date updateTime)
+    public void setUpdateTime(LocalDateTime updateTime)
     {
         this.updateTime = updateTime;
     }
