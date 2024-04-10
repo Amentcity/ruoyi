@@ -1,5 +1,6 @@
 package com.ruoyi.saas.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.ruoyi.common.core.web.domain.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -23,5 +24,6 @@ public class AppOrder extends BaseEntity implements Serializable {
 
     private BigDecimal totalPrice;
 
+    @JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss")
     private LocalDateTime createTime;
 }
