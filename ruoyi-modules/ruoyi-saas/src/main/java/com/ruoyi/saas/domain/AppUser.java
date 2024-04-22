@@ -1,5 +1,9 @@
 package com.ruoyi.saas.domain;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import com.ruoyi.common.core.annotation.Excel;
@@ -11,6 +15,8 @@ import com.ruoyi.common.core.web.domain.BaseEntity;
  * @author ruoyi
  * @date 2024-02-23
  */
+@EqualsAndHashCode(callSuper = true)
+@Data
 public class AppUser extends BaseEntity
 {
     private static final long serialVersionUID = 1L;
@@ -37,61 +43,6 @@ public class AppUser extends BaseEntity
     /** 是否删除 */
     @Excel(name = "是否删除")
     private Long isDel;
-
-    public void setId(String id) 
-    {
-        this.id = id;
-    }
-
-    public String getId() 
-    {
-        return id;
-    }
-    public void setRealName(String realName) 
-    {
-        this.realName = realName;
-    }
-
-    public String getRealName() 
-    {
-        return realName;
-    }
-    public void setNickName(String nickName) 
-    {
-        this.nickName = nickName;
-    }
-
-    public String getNickName() 
-    {
-        return nickName;
-    }
-    public void setPhone(Long phone) 
-    {
-        this.phone = phone;
-    }
-
-    public Long getPhone() 
-    {
-        return phone;
-    }
-    public void setLoginPassword(String loginPassword) 
-    {
-        this.loginPassword = loginPassword;
-    }
-
-    public String getLoginPassword() 
-    {
-        return loginPassword;
-    }
-    public void setIsDel(Long isDel) 
-    {
-        this.isDel = isDel;
-    }
-
-    public Long getIsDel() 
-    {
-        return isDel;
-    }
 
     @Override
     public String toString() {

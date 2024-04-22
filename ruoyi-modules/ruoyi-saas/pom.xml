@@ -12,7 +12,7 @@
     <artifactId>ruoyi-modules-saas</artifactId>
 
     <description>
-        ruoyi-modules-saasSaaS模块
+        ruoyi-modules-saas SaaS模块
     </description>
 
     <dependencies>

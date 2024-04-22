@@ -9,6 +9,7 @@ import java.util.function.Function;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ruoyi.saas.mapper.AppUserMapper;
@@ -26,7 +27,6 @@ import org.springframework.util.DigestUtils;
 @Service
 public class AppUserServiceImpl extends ServiceImpl<AppUserMapper,AppUser> implements IAppUserService
 {
-    @Autowired
     private IAppUserService appUserService;
 
     /**
